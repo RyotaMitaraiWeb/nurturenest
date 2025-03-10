@@ -2,11 +2,14 @@ name: nurturenest
 services:
   nextjs:
     container_name: nextjs
+    env_file:
+      - .env.local
     environment:
       POSTGRES_PASSWORD: example
       POSTGRES_USER: root
       POSTGRES_DB: nurturenest
       PGDATA: /var/lib/postgresql/data/pgdata
+      DATABASE_URL: postgresql://root:example@5432:5432/nurturenest
     build:
       dockerfile: Dockerfile.dev
     volumes:
