@@ -1,21 +1,14 @@
-import { signIn } from "@/auth";
-import { Button } from "@mui/material";
+import { login } from "@/actions/login";
+import { Heading } from "@/components/Heading";
+import { AuthForm } from "@/ui/authForm/AuthForm";
+import Image from "next/image";
 
 export default async function Page() {
-  async function action(formData: FormData) {
-    'use server';
-    const username = formData.get('username')!.toString();
-    const password = formData.get('password')!.toString();
-    try {
-      await signIn("credentials", { username, password });
-      console.log('HELLO');
-    } catch {
-    }
-  }
-
-  return <form action={action}>
-    <input name="username" />
-    <input type="password" name="password" />
-    <Button type="submit">Влез</Button>
-  </form>
+return <section className="p-8 flex flex-col gap-4 lg:gap-16 justify-center items-center lg:flex-row">
+    <Image priority className="max-w-full" src="/assets/register.jpg" alt="" width={612} height={612} />
+    <div className="flex flex-col gap-12 items-center justify-center">
+      <Heading className="w-max" level={1}>Влез в твоя профил</Heading>
+      <AuthForm action={login} submitButtonText="Влез в профил" successText="Успешно влизане! Сега ще бъдете пренасочени" />
+    </div>
+  </section>
 }
