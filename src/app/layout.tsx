@@ -26,7 +26,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  auth().then(v => console.log(v?.user))
+  auth().then(v => console.log(v?.user.Role));
   return (
     <html lang="en">
       <body

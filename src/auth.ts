@@ -2,7 +2,7 @@ import NextAuth from "next-auth"
 import Credentials from "next-auth/providers/credentials"
 import bcrypt from 'bcrypt';
 import { prisma } from "./prisma";
-
+import { Role } from "@prisma/client";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
@@ -18,6 +18,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           },
           include: {
             accounts: true,
+            Role: true,
           }
         });
 
@@ -38,5 +39,22 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   pages: {
     signIn: '/login',
     signOut: '/logout'
+  },
+  session: { strategy: 'jwt' },
+  callbacks: {
+    async jwt({ token, user }) {
+      if (token.roles) {
+        token.roles = user.Role;
+      } else {
+        const user = await prisma.user.findFirst({ where: { name: token.name }, include: { Role: true }});
+        token.roles = user?.Role;
+      }
+      return token;
+    },
+    session: async ({session, token }) => {
+      session.user.Role = token.roles as Role[];
+      return session;
+    },
+    
   }
 })
