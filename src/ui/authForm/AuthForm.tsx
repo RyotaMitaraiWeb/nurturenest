@@ -25,6 +25,7 @@ export function AuthForm(props: AuthFormProps): React.JSX.Element {
       <TextField className="w-full" name="password" label="Парола" type="password" />
     </div>
     <Button size="large" type="submit" disabled={pending} variant="contained" color="primary">{props.submitButtonText}</Button>
+    {state === null ? <Typography color="error">Грешно потребителско име или парола</Typography> : <Typography color="error" className="invisible">Грешно потребителско име или парола</Typography>}
     {state?.id ? <Typography color="primary" fontWeight="500">{props.successText}</Typography> : <Typography color="primary" fontWeight="500" className="invisible">{props.successText}</Typography>}
   </form>
 }
