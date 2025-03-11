@@ -2,14 +2,15 @@
 import bcrypt from 'bcrypt';
 import { prisma } from "@/prisma";
 import { Result } from '@/types/auth';
+import { signIn } from '@/auth';
 
 export async function register(prevState: Result | null, formData: FormData): Promise<Result | null> {
+  let data: Result;
+  const username = formData.get('username')!.toString();
+  const password = formData.get('password')!.toString();
   try {
-    const username = formData.get('username')!.toString();
-    const password = formData.get('password')!.toString();
-
     const passwordHash = await bcrypt.hash(password, 9);
-    const data = await prisma.user.create({
+    data = await prisma.user.create({
       data: {
         name: username,
         accounts: {
@@ -25,9 +26,17 @@ export async function register(prevState: Result | null, formData: FormData): Pr
       }
     });
 
-    return data;
 
   } catch {
     return null;
   }
+
+  await signIn('credentials', {
+    username,
+    password,
+    redirect: true,
+    redirectTo: '/',
+  });
+
+  return data;
 }
