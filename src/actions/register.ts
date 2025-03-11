@@ -3,6 +3,7 @@ import bcrypt from 'bcrypt';
 import { prisma } from "@/prisma";
 import { Result } from '@/types/auth';
 import { signIn } from '@/auth';
+import { roleIds } from '@/common/roles';
 
 export async function register(prevState: Result | null, formData: FormData): Promise<Result | null> {
   let data: Result;
@@ -22,9 +23,14 @@ export async function register(prevState: Result | null, formData: FormData): Pr
             type: 'credentials'
           }
 
+        },
+        Role: {
+          connect: {
+            id: roleIds.user,
+          }
         }
       }
-    });
+    }) as Result;
 
 
   } catch {
