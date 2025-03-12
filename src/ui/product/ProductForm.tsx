@@ -2,7 +2,7 @@
 
 import { toBase64 } from "@/lib/toBase64";
 import { CloudUpload } from "@mui/icons-material";
-import { styled, TextField, Button } from "@mui/material";
+import { styled, TextField, Button, Typography } from "@mui/material";
 import React, { useState } from "react";
 
 type ProductFormProps = {
@@ -20,12 +20,13 @@ export function ProductForm(props: ProductFormProps): React.JSX.Element {
       setImage(image);
     }
   }
-  return <form action={props.action}>
-    <div>
+  return <form action={props.action} className="flex flex-col gap-8">
+    <div className="flex flex-col">
       <TextField label="Име на продукта" name="name" />
 
       <Button component="label"
       role={undefined}
+      className="w-max"
       variant="contained"
       tabIndex={-1}
       startIcon={<CloudUpload />}>
@@ -37,12 +38,13 @@ export function ProductForm(props: ProductFormProps): React.JSX.Element {
       />
       <VisuallyHiddenInput name="image" value={image} readOnly />
       </Button>
+      {image ? <Typography color="primary">Снимката е качена успешно</Typography> : null}
     </div>
     <div>
       <TextField type="number" label="Цена" name="price" />
     </div>
-    <div>
-      <TextField label="Кратко описание" name="shortDescription" />
+    <div className="flex flex-col gap-8">
+      <TextField multiline className="w-100" label="Кратко описание" name="shortDescription" />
       <TextField multiline label="Пълно описание" name="description" />
     </div>
     <div>
