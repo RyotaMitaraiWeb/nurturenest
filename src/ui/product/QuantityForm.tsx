@@ -29,7 +29,7 @@ export function QuantityForm() {
     <Button color="primary" variant="contained" disabled={quantity <= 1} onClick={decrement}>
       <Remove />
     </Button>
-    <TextField className="w-20" size="small" type="number" value={quantity} onChange={handleChange} />
+    <TextField name="quantity" className="w-20" size="small" type="number" value={quantity} onChange={handleChange} />
     <Button color="primary" variant="contained" onClick={increment}>
       <Add />
     </Button>

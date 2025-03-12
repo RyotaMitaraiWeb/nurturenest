@@ -5,10 +5,7 @@ import { CloudUpload } from "@mui/icons-material";
 import { styled, TextField, Button, Typography } from "@mui/material";
 import React, { useState } from "react";
 
-type ProductFormProps = {
-  action: (form: FormData) => void;
-}
-export function ProductForm(props: ProductFormProps): React.JSX.Element {
+export function ProductForm(): React.JSX.Element {
   const [image, setImage] = useState('');
 
   async function onFileUpload(event: React.ChangeEvent<HTMLInputElement>) {

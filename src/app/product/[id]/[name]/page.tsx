@@ -8,10 +8,15 @@ import { LocalShipping, Loop, ShoppingCart } from "@mui/icons-material";
 import { Button, Divider, List, ListItem, ListItemAvatar, ListItemText, Typography } from "@mui/material";
 import Masonry from '@mui/lab/Masonry';
 import Image from "next/image";
+import { getShoppingCartData } from "@/actions/getShoppingCartData";
+import { addProductToShoppingCart } from "@/actions/addProductToShoppingCart";
 
 export default async function Page({ params }: { params: Promise<{ id: string }>}) {
   const p = await params;
   const id = Number(p.id);
+
+  const cart = await getShoppingCartData();
+  console.log(cart);
 
   const product = await getProduct(id);
   return <section className="flex flex-col gap-8 p-4 pb-16">
@@ -26,11 +31,11 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
           <AgeRecommendation product={product} />
         </section>
         <section className="lg:mt-4">
-          <form className="flex flex-col items-center lg:items-start gap-8">
+          <form action={addProductToShoppingCart} className="flex flex-col items-center lg:items-start gap-8">
             <input type="hidden" value={id} name="productId" />
             <div className="flex flex-col lg:flex-row gap-8">
               <QuantityForm />
-              <Button size="large" variant="contained" className="w-max" startIcon={<ShoppingCart />}>
+              <Button type="submit" size="large" variant="contained" className="w-max" startIcon={<ShoppingCart />}>
                 Добави в количката
               </Button>
             </div>
