@@ -8,15 +8,11 @@ import { LocalShipping, Loop, ShoppingCart } from "@mui/icons-material";
 import { Button, Divider, List, ListItem, ListItemAvatar, ListItemText, Typography } from "@mui/material";
 import Masonry from '@mui/lab/Masonry';
 import Image from "next/image";
-import { getShoppingCartData } from "@/actions/getShoppingCartData";
 import { addProductToShoppingCart } from "@/actions/addProductToShoppingCart";
 
 export default async function Page({ params }: { params: Promise<{ id: string }>}) {
   const p = await params;
   const id = Number(p.id);
-
-  const cart = await getShoppingCartData();
-  console.log(cart);
 
   const product = await getProduct(id);
   return <section className="flex flex-col gap-8 p-4 pb-16">
