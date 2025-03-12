@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import { getProduct } from "@/actions/getProduct";
 import { Heading } from "@/components/Heading";
 import { AgeRecommendation } from "@/ui/product/AgeRecommendation";
@@ -5,6 +6,7 @@ import { ProductSections } from "@/ui/product/ProductSections";
 import { QuantityForm } from "@/ui/product/QuantityForm";
 import { LocalShipping, Loop, ShoppingCart } from "@mui/icons-material";
 import { Button, Divider, List, ListItem, ListItemAvatar, ListItemText, Typography } from "@mui/material";
+import Masonry from '@mui/lab/Masonry';
 import Image from "next/image";
 
 export default async function Page({ params }: { params: Promise<{ id: string }>}) {
@@ -63,13 +65,15 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
       </section>}
         galleryChildren={
           <section>
-            {product.gallery.map(image => <Image key={image} src={image} alt="" className="w-max-75 h-auto" width={300} height={300} />)}
+            <Masonry columns={4} spacing={2}>
+              {product.gallery.map(image => <img key={image} src={image} alt="" className="w-max-75 h-auto" />)}
+            </Masonry>
           </section>
         }
 
         videoChildren={
           <section>
-            <iframe className="w-full lg:w-200 mx-auto h-75" src={product.videoUrl!} title="UPPAbaby Vista V2 Stroller" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen></iframe>
+            <iframe className="w-full lg:w-170 mx-auto h-96" src={product.videoUrl!} title="UPPAbaby Vista V2 Stroller" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen></iframe>
           </section>
         }
       />
