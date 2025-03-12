@@ -14,6 +14,12 @@ export async function addProduct(form: FormData) {
   const maximumAge = Math.floor(Number(form.get('maximumAge'))) || null;
   const videoUrl = form.get('video')!.toString();
 
+  const images = form.entries().filter(image => image[0].startsWith('image-')).map(image => image[1].toString());
+  const gallery = [] as string[];
+  for (const item of images) {
+    gallery.push(item);
+  }
+
   const data = await prisma.product.create({
     data: {
       name,
@@ -24,6 +30,7 @@ export async function addProduct(form: FormData) {
       minimumAge,
       maximumAge,
       videoUrl,
+      gallery,
     }
   });
 

@@ -20,7 +20,7 @@ export function ProductForm(props: ProductFormProps): React.JSX.Element {
       setImage(image);
     }
   }
-  return <form action={props.action} className="flex flex-col gap-8">
+  return <div className="flex flex-col gap-8">
     <div className="flex flex-col">
       <TextField label="Име на продукта" name="name" />
 
@@ -57,7 +57,7 @@ export function ProductForm(props: ProductFormProps): React.JSX.Element {
       <TextField label="Линк към видео" name="video" />
     </div>
     <Button type="submit" color="primary" variant="contained" size="large">Пращане</Button>
-  </form>
+  </div>
 }
 
 const VisuallyHiddenInput = styled('input')({

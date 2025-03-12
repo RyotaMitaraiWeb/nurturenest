@@ -76,4 +76,5 @@ model Product {
   maximumAge Int?
   videoUrl String?
   image String
+  gallery String[]
 }
