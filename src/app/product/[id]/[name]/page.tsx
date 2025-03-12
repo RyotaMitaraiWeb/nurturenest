@@ -12,41 +12,48 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
   const id = Number(p.id);
 
   const product = await getProduct(id);
-  return <section className="flex flex-col gap-4 p-4">
-    <Image src={product.image} alt="" className="max-w-full lg:max-w-150 h-auto bg-gray-500" width={600} height={600} />
-    <section className="flex flex-col gap-4">
-      <Heading level={1} className="text-center">{product.name}</Heading>
-      <Typography fontSize="large">{product.price.toString()} лв.</Typography>
-      <Typography >{product.shortDescription}</Typography>
-      <Divider className="mb-6" />
-      <AgeRecommendation product={product} />
-    </section>
+  return <section className="flex flex-col gap-8 p-4 pb-16">
+    <div className="flex flex-col lg:flex-row gap-40 items-center justify-center">
+      <Image src={product.image} alt="" className="max-w-full lg:max-w-150 h-auto bg-gray-500" width={600} height={600} />
+        <div>
+        <section className="flex flex-col gap-4">
+          <Heading level={1} className="text-center">{product.name}</Heading>
+          <Typography fontSize="large">{product.price.toString()} лв.</Typography>
+          <Typography >{product.shortDescription}</Typography>
+          <Divider className="mb-6" />
+          <AgeRecommendation product={product} />
+        </section>
+        <section className="lg:mt-4">
+          <form className="flex flex-col items-center lg:items-start gap-8">
+            <input type="hidden" value={id} name="productId" />
+            <div className="flex flex-col lg:flex-row gap-8">
+              <QuantityForm />
+              <Button size="large" variant="contained" className="w-max" startIcon={<ShoppingCart />}>
+                Добави в количката
+              </Button>
+            </div>
+            <List className="max-w-max lg:w-full lg:max-w-[initial] block ml-4" sx={{bgcolor: 'background.paper'}}>
+              <ListItem sx={{borderLeft: '1px solid rgba(0, 0, 0, 0.12)', borderRight: '1px solid rgba(0, 0, 0, 0.12)', borderTop: '1px solid rgba(0, 0, 0, 0.12)'}}>
+                <ListItemAvatar>
+                  <LocalShipping />
+                </ListItemAvatar>
+                <ListItemText primary="Безплатна доставка" secondary="За покупки на стойност над 100 лв." />
+              </ListItem>
+              <Divider component="li" />
+              <ListItem sx={{borderLeft: '1px solid rgba(0, 0, 0, 0.12)', borderRight: '1px solid rgba(0, 0, 0, 0.12)', borderTop: '1px solid rgba(0, 0, 0, 0.12)'}}>
+                <ListItemAvatar>
+                  <Loop />
+                </ListItemAvatar>
+                <ListItemText primary="Връщане на продукта до 30 дни" secondary="С цялата такса възстановена" />
+              </ListItem>
+              <Divider component="li" />
+            </List>
+          </form>
+        </section>
+      </div>
+      </div>
     <section>
-      <form className="flex flex-col items-center gap-8">
-        <input type="hidden" value={id} name="productId" />
-        <QuantityForm />
-        <Button size="large" variant="contained" className="w-max" startIcon={<ShoppingCart />}>
-          Добави в количката
-        </Button>
-        <List className="max-w-max block ml-4" sx={{bgcolor: 'background.paper'}}>
-          <ListItem sx={{borderLeft: '1px solid rgba(0, 0, 0, 0.12)', borderRight: '1px solid rgba(0, 0, 0, 0.12)', borderTop: '1px solid rgba(0, 0, 0, 0.12)'}}>
-            <ListItemAvatar>
-              <LocalShipping />
-            </ListItemAvatar>
-            <ListItemText primary="Безплатна доставка" secondary="За покупки на стойност над 100 лв." />
-          </ListItem>
-          <Divider component="li" />
-          <ListItem sx={{borderLeft: '1px solid rgba(0, 0, 0, 0.12)', borderRight: '1px solid rgba(0, 0, 0, 0.12)', borderTop: '1px solid rgba(0, 0, 0, 0.12)'}}>
-            <ListItemAvatar>
-              <Loop />
-            </ListItemAvatar>
-            <ListItemText primary="Връщане на продукта до 30 дни" secondary="С цялата такса възстановена" />
-          </ListItem>
-          <Divider component="li" />
-        </List>
-      </form>
-    </section>
-    <section>
+      <Divider />
       <ProductSections 
         descriptionChildren={<section>
         <Heading level={2}>Описание</Heading>
