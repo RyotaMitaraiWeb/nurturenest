@@ -1,9 +1,71 @@
 import { getProduct } from "@/actions/getProduct";
+import { Heading } from "@/components/Heading";
+import { AgeRecommendation } from "@/ui/product/AgeRecommendation";
+import { ProductSections } from "@/ui/product/ProductSections";
+import { QuantityForm } from "@/ui/product/QuantityForm";
+import { LocalShipping, Loop, ShoppingCart } from "@mui/icons-material";
+import { Button, Divider, List, ListItem, ListItemAvatar, ListItemText, Typography } from "@mui/material";
+import Image from "next/image";
 
 export default async function Page({ params }: { params: Promise<{ id: string }>}) {
   const p = await params;
   const id = Number(p.id);
 
   const product = await getProduct(id);
-  return <h1>{product.name}</h1>
+  return <section className="flex flex-col gap-4 p-4">
+    <Image src={product.image} alt="" className="max-w-full lg:max-w-150 h-auto bg-gray-500" width={600} height={600} />
+    <section className="flex flex-col gap-4">
+      <Heading level={1} className="text-center">{product.name}</Heading>
+      <Typography fontSize="large">{product.price.toString()} лв.</Typography>
+      <Typography >{product.shortDescription}</Typography>
+      <Divider className="mb-6" />
+      <AgeRecommendation product={product} />
+    </section>
+    <section>
+      <form className="flex flex-col items-center gap-8">
+        <input type="hidden" value={id} name="productId" />
+        <QuantityForm />
+        <Button size="large" variant="contained" className="w-max" startIcon={<ShoppingCart />}>
+          Добави в количката
+        </Button>
+        <List className="max-w-max block ml-4" sx={{bgcolor: 'background.paper'}}>
+          <ListItem sx={{borderLeft: '1px solid rgba(0, 0, 0, 0.12)', borderRight: '1px solid rgba(0, 0, 0, 0.12)', borderTop: '1px solid rgba(0, 0, 0, 0.12)'}}>
+            <ListItemAvatar>
+              <LocalShipping />
+            </ListItemAvatar>
+            <ListItemText primary="Безплатна доставка" secondary="За покупки на стойност над 100 лв." />
+          </ListItem>
+          <Divider component="li" />
+          <ListItem sx={{borderLeft: '1px solid rgba(0, 0, 0, 0.12)', borderRight: '1px solid rgba(0, 0, 0, 0.12)', borderTop: '1px solid rgba(0, 0, 0, 0.12)'}}>
+            <ListItemAvatar>
+              <Loop />
+            </ListItemAvatar>
+            <ListItemText primary="Връщане на продукта до 30 дни" secondary="С цялата такса възстановена" />
+          </ListItem>
+          <Divider component="li" />
+        </List>
+      </form>
+    </section>
+    <section>
+      <ProductSections 
+        descriptionChildren={<section>
+        <Heading level={2}>Описание</Heading>
+        <Typography>
+          {product.longDescription}
+        </Typography>
+      </section>}
+        galleryChildren={
+          <section>
+            {product.gallery.map(image => <Image key={image} src={image} alt="" className="w-max-75 h-auto" width={300} height={300} />)}
+          </section>
+        }
+
+        videoChildren={
+          <section>
+            <iframe className="w-full lg:w-200 mx-auto h-75" src={product.videoUrl!} title="UPPAbaby Vista V2 Stroller" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen></iframe>
+          </section>
+        }
+      />
+    </section>
+  </section>
 }
