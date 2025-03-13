@@ -3,7 +3,7 @@
 import { ShoppingCart } from "@/types/cart";
 import { cookies } from "next/headers";
 
-export async function addProductToShoppingCart(formData: FormData) {
+export async function addProductToShoppingCart(_initialState: number, formData: FormData) {
   const cookieStore = await cookies();
   const productId = Number(formData.get('productId'));
   const quantity = Number(formData.get('quantity'));
@@ -19,4 +19,6 @@ export async function addProductToShoppingCart(formData: FormData) {
   shoppingCart[productId].quantity = quantity;
   
   cookieStore.set('cart', JSON.stringify(shoppingCart));
+
+  return quantity;
 }
