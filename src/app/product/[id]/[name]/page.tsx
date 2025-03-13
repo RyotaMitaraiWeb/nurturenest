@@ -3,12 +3,10 @@ import { getProduct } from "@/actions/getProduct";
 import { Heading } from "@/components/Heading";
 import { AgeRecommendation } from "@/ui/product/AgeRecommendation";
 import { ProductSections } from "@/ui/product/ProductSections";
-import { QuantityForm } from "@/ui/product/QuantityForm";
-import { LocalShipping, Loop, ShoppingCart } from "@mui/icons-material";
-import { Button, Divider, List, ListItem, ListItemAvatar, ListItemText, Typography } from "@mui/material";
+import { Divider, Typography } from "@mui/material";
 import Masonry from '@mui/lab/Masonry';
 import Image from "next/image";
-import { addProductToShoppingCart } from "@/actions/addProductToShoppingCart";
+import { ProductDetailsForm } from "@/ui/product/ProductDetailsForm";
 
 export default async function Page({ params }: { params: Promise<{ id: string }>}) {
   const p = await params;
@@ -27,31 +25,7 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
           <AgeRecommendation product={product} />
         </section>
         <section className="lg:mt-4">
-          <form action={addProductToShoppingCart} className="flex flex-col items-center lg:items-start gap-8">
-            <input type="hidden" value={id} name="productId" />
-            <div className="flex flex-col lg:flex-row gap-8">
-              <QuantityForm />
-              <Button type="submit" size="large" variant="contained" className="w-max" startIcon={<ShoppingCart />}>
-                Добави в количката
-              </Button>
-            </div>
-            <List className="max-w-max lg:w-full lg:max-w-[initial] block ml-4" sx={{bgcolor: 'background.paper'}}>
-              <ListItem sx={{borderLeft: '1px solid rgba(0, 0, 0, 0.12)', borderRight: '1px solid rgba(0, 0, 0, 0.12)', borderTop: '1px solid rgba(0, 0, 0, 0.12)'}}>
-                <ListItemAvatar>
-                  <LocalShipping />
-                </ListItemAvatar>
-                <ListItemText primary="Безплатна доставка" secondary="За покупки на стойност над 100 лв." />
-              </ListItem>
-              <Divider component="li" />
-              <ListItem sx={{borderLeft: '1px solid rgba(0, 0, 0, 0.12)', borderRight: '1px solid rgba(0, 0, 0, 0.12)', borderTop: '1px solid rgba(0, 0, 0, 0.12)'}}>
-                <ListItemAvatar>
-                  <Loop />
-                </ListItemAvatar>
-                <ListItemText primary="Връщане на продукта до 30 дни" secondary="С цялата такса възстановена" />
-              </ListItem>
-              <Divider component="li" />
-            </List>
-          </form>
+          <ProductDetailsForm id={id} />
         </section>
       </div>
       </div>

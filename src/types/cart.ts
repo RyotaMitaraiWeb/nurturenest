@@ -1,4 +1,4 @@
 export type ShoppingCart = Record<number, CartItem>;
-type CartItem = {
+export type CartItem = {
   quantity: number;
 }
