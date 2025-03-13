@@ -8,6 +8,7 @@ import { auth } from "@/auth";
 import { Navigation } from "@/ui/navigation/Navigation";
 import { getShoppingCartData } from "@/actions/getShoppingCartData";
 import { getFullCart } from "@/actions/getFullCart";
+import { Footer } from "@/ui/footer/Footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -44,6 +45,7 @@ export default async function RootLayout({
             <main>
               {children}
             </main>
+            <Footer />
           </ThemeProvider>
         </AppRouterCacheProvider>
       </body>
