@@ -42,10 +42,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   },
   session: { strategy: 'jwt' },
   callbacks: {
-    async jwt({ token, user }) {
-      if (token.roles) {
-        token.roles = user.Role;
-      } else {
+    async jwt({ token }) {
+      if (!token.roles) {
         const user = await prisma.user.findFirst({ where: { name: token.name }, include: { Role: true }});
         token.roles = user?.Role;
       }

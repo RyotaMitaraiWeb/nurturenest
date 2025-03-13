@@ -13,7 +13,7 @@ export default async function Page() {
   
   return <section className="flex flex-col items-center gap-8">
     <Heading className="text-center" level={1}>Данни за поръчката</Heading>
-    {session !== null ? <Typography variant="subtitle1"><Link href="/auth/login">Влезте в профила</Link> си или <Link href="/auth/register">се регистрирайте</Link>, за да се попълнат полетата автоматично</Typography> : null}
+    {session === null ? <Typography variant="subtitle1"><Link href="/auth/login">Влезте в профила</Link> си или <Link href="/auth/register">се регистрирайте</Link>, за да се попълнат полетата автоматично</Typography> : null}
    
     <CheckoutForm cart={fullCart} />
   </section>
