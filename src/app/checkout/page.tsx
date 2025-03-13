@@ -23,6 +23,7 @@ export default async function Page() {
         <TextField name="address" defaultValue="" label="Адрес" />
         <TextField name="phone" defaultValue="" label="Телефон" />
         <TextField name="email" defaultValue="" label="Имейл" />
+        <TextField name="comments" defaultValue="" label="Бележки към поръчката" multiline />
       </section>
       <section>
         <ul>

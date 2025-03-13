@@ -96,6 +96,12 @@ model Order {
   products      Purchase[]
   createdOn     DateTime   @default(now())
   paymentMethod String
-  user          User?       @relation(fields: [userId], references: [id])
+  user          User?      @relation(fields: [userId], references: [id])
   userId        String?
+  firstName     String     @default("")
+  lastName      String     @default("")
+  phone         String     @default("")
+  email         String     @default("")
+  address       String     @default("")
+  comments      String     @default("")
 }

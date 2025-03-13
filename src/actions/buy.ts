@@ -7,7 +7,13 @@ import { redirect } from "next/navigation";
 
 export async function buy(form: FormData) {
   const session = await auth();
-  
+
+  const firstName = form.get('firstName')!.toString();
+  const lastName = form.get('lastName')!.toString();
+  const address = form.get('address')!.toString();
+  const phone = form.get('phone')!.toString();
+  const email = form.get('email')!.toString();
+  const comments = form.get('comments')!.toString();
 
   const userId = session?.user.id;
   const paymentMethod = form.get('paymentMethod')!.toString();
@@ -20,6 +26,12 @@ export async function buy(form: FormData) {
     data: {
       paymentMethod,
       userId,
+      firstName,
+      lastName,
+      address,
+      comments,
+      phone,
+      email,
       products: {
         create: products,
       }
