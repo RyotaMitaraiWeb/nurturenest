@@ -2,7 +2,7 @@
 'use client';
 
 import { PointOfSale, ShoppingCart } from "@mui/icons-material";
-import { Button, IconButton, ListItem, ListItemAvatar, ListItemText, Menu } from "@mui/material";
+import { Button, IconButton, ListItem, ListItemAvatar, ListItemText, Menu, Typography } from "@mui/material";
 import { useRouter } from "next/navigation";
 import React, { useRef, useState } from "react";
 
@@ -35,10 +35,13 @@ export function CartSummary(props: CartSummaryProps) {
   }
 
   return <>
-    <IconButton ref={el} onClick={handleClick}>
+    <IconButton size="large" ref={el} onClick={handleClick}>
       <ShoppingCart />
     </IconButton>
     <Menu className="w-full" open={open} anchorEl={el.current} onClose={() => setOpen(false)}>
+        <ListItem>
+          <Typography color="text.secondary">Количка</Typography>
+        </ListItem>
         {items.map(item => <ListItem className="flex gap-4" key={item.product.id}>
           <ListItemAvatar>
             <img className="w-15 h-auto" src={item.product.image} alt="" />

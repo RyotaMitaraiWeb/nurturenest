@@ -13,15 +13,12 @@ export function SearchFieldMobile() {
   }
 
   return <>
-    <IconButton onClick={handleClick} className="lg:hidden">
+    <IconButton size="large" onClick={handleClick} className="lg:hidden">
       <Search />
-      <Dialog sx={{bottom: 'auto'}} open={open} onClose={() => setOpen(false)}>
+      <Dialog fullWidth sx={{bottom: 'auto'}} open={open} onClose={() => setOpen(false)}>
         <ClickAwayListener onClickAway={() => setOpen(false)}>
           <form className="flex items-center">
-            <TextField placeholder="Търси" />
-            <IconButton>
-              <Search />
-            </IconButton>
+            <TextField className="w-full" placeholder="Търси" slotProps={{ input: { endAdornment: <IconButton><Search /></IconButton>}}} />
           </form>
         </ClickAwayListener>
       </Dialog>

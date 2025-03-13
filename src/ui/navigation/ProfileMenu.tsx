@@ -27,7 +27,7 @@ export function ProfileMenu(props: ProfileMenuProps) {
   const el = useRef<HTMLButtonElement>(null);
 
   return <>
-    <IconButton ref={el} onClick={handleClick}>
+    <IconButton size="large" ref={el} onClick={handleClick}>
       <Person />
     </IconButton>
     <Menu anchorEl={el.current} open={open} onClose={() => setOpen(false)}>
