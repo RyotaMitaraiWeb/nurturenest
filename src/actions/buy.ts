@@ -3,9 +3,8 @@
 import { auth } from "@/auth";
 import { prisma } from "@/prisma";
 import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
 
-export async function buy(form: FormData) {
+export async function buy(_initialState: boolean, form: FormData) {
   const session = await auth();
 
   const firstName = form.get('firstName')!.toString();
@@ -22,7 +21,7 @@ export async function buy(form: FormData) {
     .filter(product => Number(product[0]))
     .map(product => ({ productId: Number(product[0]), quantity: Number(product[1])})));
 
-  await prisma.order.create({
+  const order = await prisma.order.create({
     data: {
       paymentMethod,
       userId,
@@ -41,5 +40,5 @@ export async function buy(form: FormData) {
   const cookieStore = await cookies();
   cookieStore.delete('cart');
 
-  redirect('/');
+  return order !== null;
 }
