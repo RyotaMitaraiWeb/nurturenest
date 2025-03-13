@@ -2,7 +2,7 @@
 'use client';
 import { buy } from "@/actions/buy";
 import { Heading } from "@/components/Heading";
-import { TextField, Typography, FormControl, RadioGroup, FormControlLabel, Radio, Button, Snackbar } from "@mui/material";
+import { TextField, Typography, FormControl, RadioGroup, FormControlLabel, Radio, Button, Snackbar, Divider } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { useActionState, useEffect, useState } from "react";
 
@@ -39,19 +39,20 @@ export function CheckoutForm(props: CheckoutFormProps): React.JSX.Element {
     }
   }, [state, router]);
   
-  return <form action={action}>
-          <section>
-            <TextField name="firstName" defaultValue="" label="Име" />
-            <TextField name="lastName" defaultValue="" label="Фамилия" />
-            <TextField name="address" defaultValue="" label="Адрес" />
-            <TextField name="phone" defaultValue="" label="Телефон" />
-            <TextField name="email" defaultValue="" label="Имейл" />
-            <TextField name="comments" defaultValue="" label="Бележки към поръчката" multiline />
+  return <form action={action} className="flex flex-col lg:flex-row w-full gap-8 p-4">
+          <section className="flex lg:w-1/2 flex-col items-center gap-8">
+            <TextField className="w-3/4" name="firstName" defaultValue="" label="Име" />
+            <TextField className="w-3/4" name="lastName" defaultValue="" label="Фамилия" />
+            <TextField className="w-3/4" name="address" defaultValue="" label="Адрес" />
+            <TextField className="w-3/4" name="phone" defaultValue="" label="Телефон" />
+            <TextField className="w-3/4" name="email" defaultValue="" label="Имейл" />
+            <TextField className="w-3/4" name="comments" defaultValue="" label="Бележки към поръчката" multiline />
           </section>
-          <section>
+          <Divider className="lg:hidden" />
+          <section className="flex flex-col gap-8 w-1/2">
             <ul>
-              {fullCart.map(item => <li key={item.product.id}>
-                <span>
+              {fullCart.map(item => <li key={item.product.id} className="flex items-center justify-between">
+                <span className="flex items-center gap-4">
                   <img src={item.product.image} className="w-13.5 h-auto" alt="" />
                   <Typography>{item.product.name} (x{item.quantity})</Typography>
                   <input type="hidden" name={item.product.id.toString()} value={item.quantity} />
@@ -62,12 +63,12 @@ export function CheckoutForm(props: CheckoutFormProps): React.JSX.Element {
                 </span>
               </li>)}
             </ul>
-            <ul>
-              <li>
+            <ul className="flex flex-col gap-4">
+              <li className="border-b border-b-black">
                 <span>Цена на артикули: </span>
                 <span>{totalPrice.toFixed(2)} лв.</span>
               </li>
-              <li>
+              <li className="border-b border-b-black">
                 <span>Цена за доставка: </span>
                 <span>{shippingPrice === 0 ? 'Безплатна' : `${shippingPrice.toFixed(2)} лв.`}</span>
               </li>
@@ -76,10 +77,12 @@ export function CheckoutForm(props: CheckoutFormProps): React.JSX.Element {
                 <span>{(totalPrice + shippingPrice).toFixed(2)} лв.</span>
               </li>
             </ul>
+            <Divider />
             <Heading level={2}>Начин на плащане</Heading>
             <FormControl>
               <RadioGroup
                 defaultValue="cash"
+                className="flex flex-col gap-4"
               >
                 <FormControlLabel value="cash" name="paymentMethod" control={<Radio />} label="На място при доставка (кеш)" />
                 <FormControlLabel value="card" name="paymentMethod" control={<Radio />} label="С карта" />
