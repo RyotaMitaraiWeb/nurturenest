@@ -71,7 +71,7 @@ export function OrderTableRow(props: OrderTableRow) {
             <TextField disabled value={props.order.phone} />
             <TextField disabled value={props.order.email} />
             <TextField disabled value={props.order.comments} />
-            </div>
+          </div>
         </div>
       </ClickAwayListener>
     </Dialog>

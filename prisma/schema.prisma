@@ -18,6 +18,12 @@ model User {
   updatedAt DateTime @updatedAt
   Role      Role[]
   Order     Order[]
+
+  firstName String @default("")
+  lastName  String @default("")
+  address   String @default("")
+  email     String @default("")
+  phone     String @default("")
 }
 
 model Account {
