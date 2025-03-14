@@ -44,7 +44,7 @@ export default async function RootLayout({
     </nav>
     <Divider flexItem className="lg:hidden" />
     <Divider orientation="vertical" flexItem className="hidden lg:block" />
-    <section>
+    <section className="lg:w-1/2 overflow-auto">
       {children}
     </section>
   </div>
