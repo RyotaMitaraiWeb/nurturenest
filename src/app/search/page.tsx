@@ -14,7 +14,6 @@ export default async function Page({
       <Heading className="mb-8" level={1}>Резултати за &quot;{search}&quot;</Heading>
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-y-8">
         {results.map(result => <SearchResultCard key={result.productId} result={result} />)}
-        {results.map(result => <SearchResultCard key={result.productId} result={result} />)}
       </div>
     </section>
   }
