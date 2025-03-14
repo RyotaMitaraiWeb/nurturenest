@@ -83,7 +83,7 @@ export function CheckoutForm(props: CheckoutFormProps): React.JSX.Element {
             <Heading level={2}>Начин на плащане</Heading>
             <FormControl>
               <RadioGroup
-                defaultValue="cash"
+                defaultValue={(totalPrice + shippingPrice) < 100 && props.session?.user.defaultPaymentMethod.startsWith('partially') ? 'cash' : props.session?.user.defaultPaymentMethod || 'cash'}
                 className="flex flex-col gap-4"
               >
                 <FormControlLabel value="cash" name="paymentMethod" control={<Radio />} label="На място при доставка (кеш)" />

@@ -10,9 +10,6 @@ export async function updatePreferences(initialState: number, form: FormData) {
   const phone = form.get('phone')!.toString();
   const email = form.get('email')!.toString();
 
-  console.log('USER BELOW');
-  console.log(userId);
-
   await prisma.user.update(
     {
       where: {

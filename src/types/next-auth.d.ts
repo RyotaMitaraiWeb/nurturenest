@@ -7,6 +7,7 @@ declare module "next-auth" {
       phone: string;
       firstName: string;
       lastName: string;
+      defaultPaymentMethod: string;
       Role: {
         id: number;
         name: string;

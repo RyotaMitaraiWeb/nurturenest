@@ -54,6 +54,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       token.phone = user!.phone;
       token.email = user!.email;
       token.id = user!.id;
+      token.defaultPaymentMethod = user!.defaultPaymentMethod;
       return token;
     },
     session: async ({session, token }) => {
@@ -64,6 +65,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       session.user.address = token.address as string;
       session.user.phone = token.phone as string;
       session.user.id = token.id as string;
+      session.user.defaultPaymentMethod = token.defaultPaymentMethod as string;
       return session;
     },
     
