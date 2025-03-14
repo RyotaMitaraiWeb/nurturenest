@@ -1,8 +1,9 @@
 'use client';
 
-import { ExitToApp, FormatListBulleted, Login, Paid, Person } from "@mui/icons-material";
+import { ExitToApp, FormatListBulleted, Login, Logout, Paid, Person } from "@mui/icons-material";
 import { IconButton, ListItem, ListItemAvatar, ListItemButton, ListItemText, Menu, Typography } from "@mui/material";
 import { Session } from "next-auth";
+import { signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";
 
@@ -26,6 +27,10 @@ export function ProfileMenu(props: ProfileMenuProps) {
 
   const el = useRef<HTMLButtonElement>(null);
 
+  function submit() {
+    signOut({ redirectTo: '/auth/login' });
+  }
+
   return <>
     <IconButton size="large" ref={el} onClick={handleClick}>
       <Person />
@@ -47,6 +52,13 @@ export function ProfileMenu(props: ProfileMenuProps) {
           </ListItemAvatar>
           <ListItemText>Данни по подразбиране</ListItemText>
         </ListItemButton>
+        <ListItemButton onClick={submit}>
+          <ListItemAvatar>
+            <Logout />
+          </ListItemAvatar>
+          <ListItemText>Излез от профил</ListItemText>
+        </ListItemButton>
+        
       </> : <>
         <ListItemButton onClick={() => redirectToPage('/auth/login')}>
           <ListItemAvatar>
