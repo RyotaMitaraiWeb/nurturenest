@@ -24,7 +24,7 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
           <section className="flex flex-col gap-4">
             <Heading level={1} className="text-center">{product.name}</Heading>
             <div className="flex gap-4">
-              <Rating defaultValue={product.averageRating} readOnly />
+              <Rating precision={0.5} defaultValue={product.averageRating} readOnly />
               <Typography>({product.Review.length} мнения)</Typography>
             </div>
             <Typography fontSize="large">{product.price.toString()} лв.</Typography>
@@ -61,9 +61,11 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
         }
 
         reviewsChildren={
-          <section>
+          <section className="flex flex-col gap-8">
             <CommentForm userId={session?.user.id} productId={id}></CommentForm>
-            {product.Review.map(review => <Comment key={review.id} review={review} />)}
+            <div className="flex flex-col gap-8 p-4">
+              {product.Review.map(review => <Comment key={review.id} review={review} />)}
+            </div>
             {product.Review.length === 0 ? <Typography>Все още няма коментари</Typography> : null}
           </section>
         }
