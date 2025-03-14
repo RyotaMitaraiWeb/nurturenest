@@ -11,6 +11,12 @@ export async function getProduct(id: number): Promise<ProductDetails> {
         include: { 
           user: true,
         },
+        orderBy: [{
+          rating: 'desc',
+        },
+      {
+        createdOn: 'desc',
+      }]
       } 
     },
   });
