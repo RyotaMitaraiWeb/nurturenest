@@ -3,7 +3,7 @@ import { getProduct } from "@/actions/getProduct";
 import { Heading } from "@/components/Heading";
 import { AgeRecommendation } from "@/ui/product/AgeRecommendation";
 import { ProductSections } from "@/ui/product/ProductSections";
-import { Divider, Typography } from "@mui/material";
+import { Divider, Rating, Typography } from "@mui/material";
 import Masonry from '@mui/lab/Masonry';
 import Image from "next/image";
 import { ProductDetailsForm } from "@/ui/product/ProductDetailsForm";
@@ -17,16 +17,20 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
     <div className="flex flex-col lg:flex-row gap-40 items-center justify-center">
       <Image src={product.image} alt="" className="max-w-full lg:max-w-150 h-auto bg-gray-500" width={600} height={600} />
         <div>
-        <section className="flex flex-col gap-4">
-          <Heading level={1} className="text-center">{product.name}</Heading>
-          <Typography fontSize="large">{product.price.toString()} лв.</Typography>
-          <Typography >{product.shortDescription}</Typography>
-          <Divider className="mb-6" />
-          <AgeRecommendation product={product} />
-        </section>
-        <section className="lg:mt-4">
-          <ProductDetailsForm id={id} />
-        </section>
+          <section className="flex flex-col gap-4">
+            <Heading level={1} className="text-center">{product.name}</Heading>
+            <div className="flex gap-4">
+              <Rating defaultValue={product.averageRating} readOnly />
+              <Typography>({product.Review.length} мнения)</Typography>
+            </div>
+            <Typography fontSize="large">{product.price.toString()} лв.</Typography>
+            <Typography >{product.shortDescription}</Typography>
+            <Divider className="mb-6" />
+            <AgeRecommendation product={product} />
+          </section>
+          <section className="lg:mt-4">
+            <ProductDetailsForm id={id} />
+          </section>
       </div>
       </div>
     <section>

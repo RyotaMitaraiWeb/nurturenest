@@ -17,7 +17,9 @@ export function SearchFieldMobile() {
 
   function redirectToSearch(event: React.MouseEvent) {
     event.preventDefault();
-    router.push(`/search&search=${field.current?.value}`);
+    const field = document.querySelector('#search') as HTMLInputElement;
+    console.log(field.value);
+    router.push(`/search&search=${field.value}`);
     setOpen(false);
   }
 
@@ -27,7 +29,7 @@ export function SearchFieldMobile() {
       <Dialog fullWidth sx={{bottom: 'auto'}} open={open} onClose={() => setOpen(false)}>
         <ClickAwayListener onClickAway={() => setOpen(false)}>
           <form className="flex items-center">
-            <TextField ref={field} name="search" className="w-full" placeholder="Търси" slotProps={{ input: { endAdornment: <IconButton onClick={redirectToSearch}><Search /></IconButton>}}} />
+            <TextField id="search" ref={field} name="search" className="w-full" placeholder="Търси" slotProps={{ input: { endAdornment: <IconButton onClick={redirectToSearch}><Search /></IconButton>}}} />
           </form>
         </ClickAwayListener>
       </Dialog>

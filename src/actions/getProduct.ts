@@ -1,14 +1,25 @@
 'use server';
 
 import { prisma } from "@/prisma";
-import { Product } from "@prisma/client";
+import { ProductDetails } from "@/types/product";
 import { notFound } from "next/navigation";
 
-export async function getProduct(id: number): Promise<Product> {
-  const product = await prisma.product.findUnique({ where: { id } });
+export async function getProduct(id: number): Promise<ProductDetails> {
+  const product = await prisma.product.findUnique({ where: { id }, include: { Review: true } });
   if (!product) {
     return notFound();
   }
 
-  return product;
+  const averageRating = await prisma.review.aggregate(
+    {
+      _avg: {
+        rating: true, 
+      },
+      where: {
+        productId: id,
+      }
+    }
+  );
+
+  return { ...product, averageRating: averageRating._avg.rating || 0};
 }
