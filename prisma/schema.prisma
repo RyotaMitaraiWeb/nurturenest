@@ -111,4 +111,5 @@ model Order {
   email         String     @default("")
   address       String     @default("")
   comments      String     @default("")
+  isReturned    Boolean    @default(false)
 }

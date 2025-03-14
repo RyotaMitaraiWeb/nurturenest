@@ -34,10 +34,6 @@ export default async function RootLayout({
           url: '/profile/orders',
           text: 'Направени поръчки',
         },
-        {
-          url: '/profile/returns',
-          text: 'Заявки за връщания',
-        },
       ]
     },
   ]

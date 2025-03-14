@@ -5,6 +5,7 @@ import { Heading } from "@/components/Heading";
 import { Button, ClickAwayListener, Dialog, Divider, Link, List, ListItem, ListItemAvatar, ListItemText, TableCell, TableRow, TextField } from "@mui/material";
 import { Order } from "@prisma/client";
 import { useState } from "react";
+import { ReturnForm } from "./ReturnForm";
 
 type OrderTableRow = {
   order: Order & {
@@ -44,6 +45,9 @@ export function OrderTableRow(props: OrderTableRow) {
     </TableCell>
     <TableCell>
       <Button variant="contained" onClick={() => setOpen(true)}>Детайли</Button>
+    </TableCell>
+    <TableCell>
+      <ReturnForm isReturned={props.order.isReturned} orderId={props.order.id} date={props.order.createdOn} />
     </TableCell>
 
     <Dialog fullWidth open={open} onClose={() => setOpen(false)}>

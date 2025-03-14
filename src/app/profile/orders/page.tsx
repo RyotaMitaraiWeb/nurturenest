@@ -26,6 +26,9 @@ export default async function Page() {
               <TableCell>
                 Детайли
               </TableCell>
+              <TableCell>
+                Връщане
+              </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
