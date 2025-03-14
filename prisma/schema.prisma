@@ -19,12 +19,13 @@ model User {
   Role      Role[]
   Order     Order[]
 
-  firstName            String @default("")
-  lastName             String @default("")
-  address              String @default("")
-  email                String @default("")
-  phone                String @default("")
-  defaultPaymentMethod String @default("cash")
+  firstName            String   @default("")
+  lastName             String   @default("")
+  address              String   @default("")
+  email                String   @default("")
+  phone                String   @default("")
+  defaultPaymentMethod String   @default("cash")
+  Review               Review[]
 }
 
 model Account {
@@ -87,6 +88,7 @@ model Product {
   gallery          String[]
 
   Purchase Purchase[]
+  Review   Review[]
 }
 
 model Purchase {
@@ -112,4 +114,15 @@ model Order {
   address       String     @default("")
   comments      String     @default("")
   isReturned    Boolean    @default(false)
+}
+
+model Review {
+  id        Int     @id @default(autoincrement())
+  product   Product @relation(fields: [productId], references: [id])
+  productId Int
+  rating    Int
+  user      User    @relation(fields: [userId], references: [id])
+  userId    String
+  text      String
+  createdOn DateTime @default(now())
 }

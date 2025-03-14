@@ -5,6 +5,7 @@ import React, { useState } from "react";
 type ProductTabsProps = {
   withVideo: boolean;
   onChange: (value: number) => void;
+  withReviews: boolean;
 }
 
 export function ProductTabs(props: ProductTabsProps) {
@@ -18,5 +19,6 @@ export function ProductTabs(props: ProductTabsProps) {
     <Tab label="Описание" />
     <Tab label="Галерия" />
     {props.withVideo ? <Tab label="Видео" /> : null}
+    {props.withReviews ? <Tab label="Мнения" /> : null}
   </Tabs>
 }
