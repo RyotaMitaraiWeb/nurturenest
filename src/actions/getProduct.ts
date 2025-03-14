@@ -5,7 +5,15 @@ import { ProductDetails } from "@/types/product";
 import { notFound } from "next/navigation";
 
 export async function getProduct(id: number): Promise<ProductDetails> {
-  const product = await prisma.product.findUnique({ where: { id }, include: { Review: true } });
+  const product = await prisma.product.findUnique({ where: { id }, 
+    include: { 
+      Review: { 
+        include: { 
+          user: true,
+        },
+      } 
+    },
+  });
   if (!product) {
     return notFound();
   }

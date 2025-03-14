@@ -1,7 +1,7 @@
-import { Product, Review } from "@prisma/client";
+import { Product, Review, User } from "@prisma/client";
 
 export type ProductDetails = Product & {
   averageRating: number;
 } & {
-  Review: Review[],
+  Review: (Review & { user: User })[],
 }

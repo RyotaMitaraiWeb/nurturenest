@@ -7,10 +7,14 @@ import { Divider, Rating, Typography } from "@mui/material";
 import Masonry from '@mui/lab/Masonry';
 import Image from "next/image";
 import { ProductDetailsForm } from "@/ui/product/ProductDetailsForm";
+import { Comment } from "@/ui/product/Comment";
+import { CommentForm } from "@/ui/product/CommentForm";
+import { auth } from "@/auth";
 
 export default async function Page({ params }: { params: Promise<{ id: string }>}) {
   const p = await params;
   const id = Number(p.id);
+  const session = await auth();
 
   const product = await getProduct(id);
   return <section className="flex flex-col gap-8 p-4 pb-16">
@@ -53,6 +57,14 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
         videoChildren={
           <section>
             <iframe className="w-full lg:w-170 mx-auto h-96" src={product.videoUrl!} title="UPPAbaby Vista V2 Stroller" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen></iframe>
+          </section>
+        }
+
+        reviewsChildren={
+          <section>
+            <CommentForm userId={session?.user.id} productId={id}></CommentForm>
+            {product.Review.map(review => <Comment key={review.id} review={review} />)}
+            {product.Review.length === 0 ? <Typography>Все още няма коментари</Typography> : null}
           </section>
         }
       />
