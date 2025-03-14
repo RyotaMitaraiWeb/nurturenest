@@ -19,7 +19,6 @@ export function QuantityForm() {
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     event.preventDefault();
     const value = Number(event.target.value);
-    console.log(value);
     if (value >= 1) {
       setQuantity(value);
     }

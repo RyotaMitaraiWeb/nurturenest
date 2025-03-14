@@ -17,7 +17,6 @@ type SidebarSectionProps = {
 
 export function SidebarSection(props: SidebarSectionProps) {
   const pathname = usePathname();
-  console.log(pathname);
 
   return <div>
     <Typography variant="h6" fontWeight="bold">{props.section.heading}</Typography>
