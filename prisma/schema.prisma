@@ -18,6 +18,13 @@ model User {
   updatedAt DateTime @updatedAt
   Role      Role[]
   Order     Order[]
+
+  firstName            String @default("")
+  lastName             String @default("")
+  address              String @default("")
+  email                String @default("")
+  phone                String @default("")
+  defaultPaymentMethod String @default("cash")
 }
 
 model Account {
@@ -104,4 +111,5 @@ model Order {
   email         String     @default("")
   address       String     @default("")
   comments      String     @default("")
+  isReturned    Boolean    @default(false)
 }

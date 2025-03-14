@@ -3,10 +3,12 @@
 import { buy } from "@/actions/buy";
 import { Heading } from "@/components/Heading";
 import { TextField, Typography, FormControl, RadioGroup, FormControlLabel, Radio, Button, Snackbar, Divider } from "@mui/material";
+import { Session } from "next-auth";
 import { useRouter } from "next/navigation";
 import { useActionState, useEffect, useState } from "react";
 
 type CheckoutFormProps = {
+  session: Session | null;
   cart: {
     product: {
       price: string;
@@ -41,11 +43,11 @@ export function CheckoutForm(props: CheckoutFormProps): React.JSX.Element {
   
   return <form action={action} className="flex flex-col lg:flex-row w-full gap-8 p-4">
           <section className="flex lg:w-1/2 flex-col items-center gap-8">
-            <TextField className="w-3/4" name="firstName" defaultValue="" label="Име" />
-            <TextField className="w-3/4" name="lastName" defaultValue="" label="Фамилия" />
-            <TextField className="w-3/4" name="address" defaultValue="" label="Адрес" />
-            <TextField className="w-3/4" name="phone" defaultValue="" label="Телефон" />
-            <TextField className="w-3/4" name="email" defaultValue="" label="Имейл" />
+            <TextField className="w-3/4" name="firstName" defaultValue={props.session?.user.firstName} label="Име" />
+            <TextField className="w-3/4" name="lastName" defaultValue={props.session?.user.lastName} label="Фамилия" />
+            <TextField className="w-3/4" name="address" defaultValue={props.session?.user.address} label="Адрес" />
+            <TextField className="w-3/4" name="phone" defaultValue={props.session?.user.phone} label="Телефон" />
+            <TextField className="w-3/4" name="email" defaultValue={props.session?.user.email} label="Имейл" />
             <TextField className="w-3/4" name="comments" defaultValue="" label="Бележки към поръчката" multiline />
           </section>
           <Divider className="lg:hidden" />
@@ -81,7 +83,7 @@ export function CheckoutForm(props: CheckoutFormProps): React.JSX.Element {
             <Heading level={2}>Начин на плащане</Heading>
             <FormControl>
               <RadioGroup
-                defaultValue="cash"
+                defaultValue={(totalPrice + shippingPrice) < 100 && props.session?.user.defaultPaymentMethod.startsWith('partially') ? 'cash' : props.session?.user.defaultPaymentMethod || 'cash'}
                 className="flex flex-col gap-4"
               >
                 <FormControlLabel value="cash" name="paymentMethod" control={<Radio />} label="На място при доставка (кеш)" />
