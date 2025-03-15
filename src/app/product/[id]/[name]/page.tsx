@@ -10,11 +10,15 @@ import { ProductDetailsForm } from "@/ui/product/ProductDetailsForm";
 import { Comment } from "@/ui/product/Comment";
 import { CommentForm } from "@/ui/product/CommentForm";
 import { auth } from "@/auth";
+import { getPromotion } from "@/actions/getPromotion";
+import { PromoCodeSnackbar } from "@/ui/product/PromoCodeSnackbar";
 
-export default async function Page({ params }: { params: Promise<{ id: string }>}) {
+export default async function Page({ params, searchParams }: { params: Promise<{ id: string }>, searchParams: Promise<{ [key: string]: string | string[] | undefined }>}) {
   const p = await params;
   const id = Number(p.id);
   const session = await auth();
+  const code = (await searchParams).promoCode as string;
+  const promotion = await getPromotion(code, session?.user.id, id);
 
   const product = await getProduct(id);
   return <section className="flex flex-col gap-8 p-4 pb-16">
@@ -71,5 +75,6 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
         }
       />
     </section>
+    <PromoCodeSnackbar promotion={promotion} />
   </section>
 }

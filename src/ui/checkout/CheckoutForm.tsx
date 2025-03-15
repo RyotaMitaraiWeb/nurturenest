@@ -9,6 +9,7 @@ import { useActionState, useEffect, useState } from "react";
 
 type CheckoutFormProps = {
   session: Session | null;
+  promotionContents: string[];
   cart: {
     product: {
       price: string;
@@ -79,6 +80,16 @@ export function CheckoutForm(props: CheckoutFormProps): React.JSX.Element {
                 <span>{(totalPrice + shippingPrice).toFixed(2)} лв.</span>
               </li>
             </ul>
+            {props.promotionContents.length ?
+              <section>
+                <Heading className="mb-4" level={2}>Промоции за вас: </Heading>
+                <ul className="px-5">
+                  {props.promotionContents.map((v, i) => <Typography className="list-disc" component="li" key={i}>
+                    {v}
+                  </Typography>)}
+                </ul>
+              </section>
+            : null}
             <Divider />
             <Heading level={2}>Начин на плащане</Heading>
             <FormControl>
@@ -94,6 +105,7 @@ export function CheckoutForm(props: CheckoutFormProps): React.JSX.Element {
                 <FormControlLabel disabled={totalPrice < 100} value="partially3" name="paymentMethod" control={<Radio />} label="На изплащане (2 години)" />
               </RadioGroup>
             </FormControl>
+
             <Button disabled={fullCart.length === 0} type="submit" variant="contained" size="large">Плащане</Button>
           </section>
           <Snackbar anchorOrigin={{ horizontal: 'center', vertical: 'bottom' }} open={open} onClose={handleClose} autoHideDuration={10_000} message="Успешна поръчка. Сега ще бъдете пренасочени" />

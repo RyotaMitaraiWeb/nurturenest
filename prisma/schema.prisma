@@ -19,13 +19,14 @@ model User {
   Role      Role[]
   Order     Order[]
 
-  firstName            String   @default("")
-  lastName             String   @default("")
-  address              String   @default("")
-  email                String   @default("")
-  phone                String   @default("")
-  defaultPaymentMethod String   @default("cash")
+  firstName            String      @default("")
+  lastName             String      @default("")
+  address              String      @default("")
+  email                String      @default("")
+  phone                String      @default("")
+  defaultPaymentMethod String      @default("cash")
   Review               Review[]
+  promotions           Promotion[]
 }
 
 model Account {
@@ -87,8 +88,9 @@ model Product {
   image            String
   gallery          String[]
 
-  Purchase Purchase[]
-  Review   Review[]
+  Purchase   Purchase[]
+  Review     Review[]
+  promotions Promotion[]
 }
 
 model Purchase {
@@ -117,12 +119,24 @@ model Order {
 }
 
 model Review {
-  id        Int     @id @default(autoincrement())
-  product   Product @relation(fields: [productId], references: [id])
+  id        Int      @id @default(autoincrement())
+  product   Product  @relation(fields: [productId], references: [id])
   productId Int
   rating    Int
-  user      User    @relation(fields: [userId], references: [id])
+  user      User     @relation(fields: [userId], references: [id])
   userId    String
   text      String
   createdOn DateTime @default(now())
+}
+
+model Promotion {
+  id        String  @id @default(cuid())
+  content   String
+  product   Product @relation(fields: [productId], references: [id])
+  productId Int
+  type      String
+  promoCode String
+  User      User?   @relation(fields: [userId], references: [id])
+  userId    String?
+  hasBeenChecked Boolean @default(false)
 }
