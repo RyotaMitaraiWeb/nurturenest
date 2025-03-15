@@ -19,7 +19,7 @@ export default async function Page() {
   return <section>
     <Heading level={1}>Добави нов продукт</Heading>
     <form action={addProduct}>
-      <ProductSections galleryChildren={<GalleryForm />} descriptionChildren={<ProductForm action={addProduct} />} />
+      <ProductSections galleryChildren={<GalleryForm />} descriptionChildren={<ProductForm />} />
     </form>
   </section>
 }
