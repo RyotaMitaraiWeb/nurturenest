@@ -23,5 +23,5 @@ export function PromoCodeSnackbar(props: PromoCodeSnackbarProps) {
     return null;
   }
 
-  return <Snackbar anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }} open={open} autoHideDuration={20_000} onClose={() => setOpen(false)} content={`Успешно сканиран промо код! Вашата награда е: ${props.promotion.content}`} />
+  return <Snackbar anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }} open={open} autoHideDuration={20_000} onClose={() => setOpen(false)} message={`Успешно сканиран промо код! Вашата награда е: ${props.promotion.content}`} />
 }
