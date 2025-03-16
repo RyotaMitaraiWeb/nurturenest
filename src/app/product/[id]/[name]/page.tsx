@@ -46,7 +46,7 @@ export default async function Page({ params, searchParams }: { params: Promise<{
       <ProductSections 
         descriptionChildren={<section>
         <Heading level={2}>Описание</Heading>
-        <Typography>
+        <Typography className="whitespace-pre-line">
           {product.longDescription}
         </Typography>
       </section>}

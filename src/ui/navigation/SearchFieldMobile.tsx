@@ -19,7 +19,7 @@ export function SearchFieldMobile() {
     event.preventDefault();
     const field = document.querySelector('#search') as HTMLInputElement;
     console.log(field.value);
-    router.push(`/search&search=${field.value}`);
+    router.push(`/search?search=${field.value}`);
     setOpen(false);
   }
 
