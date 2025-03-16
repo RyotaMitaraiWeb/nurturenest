@@ -11,7 +11,6 @@ export async function getPromotion(promoCode: string, userId: string | null | un
       where: {
         promoCode,
         productId,
-        userId,
       }
     }
   );
