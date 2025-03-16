@@ -15,7 +15,7 @@ export function ProductTabs(props: ProductTabsProps) {
     setValue(newValue);
     props.onChange(newValue);
   };
-  return <Tabs value={value} onChange={handleChange}>
+  return <Tabs className="mb-4" value={value} onChange={handleChange}>
     <Tab label="Описание" />
     <Tab label="Галерия" />
     {props.withVideo ? <Tab label="Видео" /> : null}
