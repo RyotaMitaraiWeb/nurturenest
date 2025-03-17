@@ -99,7 +99,7 @@ export function CheckoutForm(props: CheckoutFormProps): React.JSX.Element {
               >
                 <FormControlLabel value="cash" name="paymentMethod" control={<Radio />} label="На място при доставка (кеш)" />
                 <FormControlLabel value="card" name="paymentMethod" control={<Radio />} label="С карта" />
-                <FormControlLabel value="bank" name="paymentMethod" control={<Radio />} label="Наложен платеж" />
+                <FormControlLabel value="bank" name="paymentMethod" control={<Radio />} label="Банков трансфер" />
                 <FormControlLabel disabled={totalPrice < 100} value="partially1" name="paymentMethod" control={<Radio />} label="На изплащане (6 месеца)" />
                 <FormControlLabel disabled={totalPrice < 100} value="partially2" name="paymentMethod" control={<Radio />} label="На изплащане (1 година)" />
                 <FormControlLabel disabled={totalPrice < 100} value="partially3" name="paymentMethod" control={<Radio />} label="На изплащане (2 години)" />
