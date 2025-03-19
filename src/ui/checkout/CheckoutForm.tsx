@@ -28,7 +28,7 @@ export function CheckoutForm(props: CheckoutFormProps): React.JSX.Element {
 
   const [open, setOpen] = useState(false);
   const router = useRouter();
-  const [state, action] = useActionState(buy, false);
+  const [state, action, pending] = useActionState(buy, false);
 
   function handleClose() {
     setOpen(false);
@@ -106,7 +106,7 @@ export function CheckoutForm(props: CheckoutFormProps): React.JSX.Element {
               </RadioGroup>
             </FormControl>
 
-            <Button disabled={fullCart.length === 0} type="submit" variant="contained" size="large">Плащане</Button>
+            <Button disabled={fullCart.length === 0 || pending} type="submit" variant="contained" size="large">Плащане</Button>
           </section>
           <Snackbar anchorOrigin={{ horizontal: 'center', vertical: 'bottom' }} open={open} onClose={handleClose} autoHideDuration={10_000} message="Успешна поръчка. Сега ще бъдете пренасочени" />
       </form>

@@ -7,7 +7,7 @@ import { useActionState, useEffect, useState } from "react";
 import { addProductToShoppingCart } from "@/actions/addProductToShoppingCart";
 
 export function ProductDetailsForm({ id }: { id: number}) {
-  const [state, action] = useActionState(addProductToShoppingCart, 0);
+  const [state, action, pending] = useActionState(addProductToShoppingCart, 0);
 
   const [open, setOpen] = useState(false);
 
@@ -22,7 +22,7 @@ export function ProductDetailsForm({ id }: { id: number}) {
     <input type="hidden" value={id} name="productId" />
     <div className="flex flex-col lg:flex-row gap-8">
       <QuantityForm />
-      <Button type="submit" size="large" variant="contained" className="w-max" startIcon={<ShoppingCart />}>
+      <Button disabled={pending} type="submit" size="large" variant="contained" className="w-max" startIcon={<ShoppingCart />}>
         Добави в количката
       </Button>
     </div>
